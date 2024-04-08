@@ -1,0 +1,69 @@
+﻿@page
+@model PRN221_PROJECT_FoodOrder.Pages.ManageOrderModel
+@{
+
+}
+<style>
+    .page-item.active .page-link {
+        background-color: #F29F05;
+        border-color: #F29F05;
+    }
+</style>
+<section class="gap">
+    <div class="container">
+        <div class="row">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="fw-bold mb-3">Manage Order</h3>
+                    <table id="myTable" class="table">
+                        <thead>
+                            <tr>
+                                <td>Order Id</td>
+                                <td>Receiver</td>
+                                <td>Date</td>
+                                <td>Status</td>
+                                <td>Total</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Order item in ViewBag.listO)
+                            {
+                                <tr>
+                                    <td>@item.OrderId</td>
+                                    <td>@item.ReceiverName</td>
+                                    <td>@item.OrderDate</td>
+                                    @if (@item.OrderStatus.ToLower().Equals("new"))
+                                    {
+                                        <td>
+                                            <span class="badge bg-success" style="vertical-align: unset;margin-left: 0px;">@item.OrderStatus</span>
+                                        </td>
+                                    }
+                                    else if (@item.OrderStatus.ToLower().Equals("hold"))
+                                    {
+                                         <td>
+                                            <span class="badge bg-warning" style="vertical-align: unset;margin-left: 0px;">@item.OrderStatus</span>
+                                        </td>
+                                    }
+                                    else if (@item.OrderStatus.ToLower().Equals("closed"))
+                                    {
+                                        <td>
+                                            <span class="badge bg-danger" style="vertical-align: unset;margin-left: 0px;">@item.OrderStatus</span>
+                                        </td>
+                                    }
+
+
+                                    <td>@item.Total</td>
+                                    <td>
+                                        <a asp-page="OrderDetails" asp-route-orderid="@item.OrderId"><i class="fa-solid fa-eye text-secondary"></i></a>
+                                        <a asp-route-orderid="@item.OrderId" asp-page-handler="Confirm" class="ms-2"><i class="fa-solid fa-trash text-secondary"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,86 @@
+﻿@page
+@model PRN221_PROJECT_FoodOrder.Pages.UserProfileModel
+@{
+    Model.User user = ViewBag.userDetails;
+}
+<!-- contact map -->
+<form method="post">
+    <section class="gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" data-aos="fade-up" data-aos-delay="300" data-aos-duration="400">
+
+                    <div class="contact-map-data">
+
+                        <div class="join-courier content">
+                            <h3 class="text-black">Your Profile</h3>
+                            <p>Your profile information is below</p>
+                            <div class="blog-form">
+                                <input type="hidden" value="@user.UserId" asp-for="@Model.userUpdate.UserId" />
+                                <div class="name-form">
+                                    <i class="fa-regular fa-user text-black"></i>
+                                    <input asp-for="@Model.userUpdate.Customer.CustomerName" class="text-black" value="@user.Customer.CustomerName" type="text" placeholder="Customer Name" disabled>
+                                </div>
+                                <div class="name-form">
+                                    <i class="fa-regular fa-envelope text-black"></i>
+                                    <input asp-for="@Model.userUpdate.Email" class="text-black" value="@user.Email" type="text" placeholder="Email" disabled>
+                                </div>
+                                <div class="name-form">
+                                    <i class="fa-regular fa-address-card text-black"></i>
+                                    <input asp-for="@Model.userUpdate.Customer.CustomerAddress" class="text-black" value="@user.Customer.CustomerAddress" type="text" placeholder="Address" disabled>
+                                </div>
+                                <div class="name-form">
+                                    <i class="fa-regular fa-address-book text-black"></i>
+                                    <input asp-for="@Model.userUpdate.Customer.CustomerPhone" class="text-black" value="@user.Customer.CustomerPhone" type="text" placeholder="Phonenumber" disabled>
+                                </div>
+                                <input id="btnEdit" type="button" class="button-price mt-3" value="Edit Profile" onclick="handleEditProfile(event)" />
+                            </div>
+
+                        </div>
+                        <div class="contact-map py-3">
+
+                            <img id="avatarShowing" src="@user.Avatar" class="rounded-circle mb-3 " style="width: 400px; height: 400px; object-fit:cover" />
+                            <input asp-for="@Model.userUpdate.Avatar" value="@user.Avatar" class="form-control" type="text" onchange="changeImagePreview()" disabled />
+                            @*<input id="inputFileUrl" type="hidden" asp-for="@Model.userUpdate.Avatar" />*@
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+
+
+
+    @section JavaScript {
+    <script>
+        function handleEditProfile(event) {
+            const inputFields = document.querySelectorAll('.name-form input');
+            let inputFile = document.querySelector('.contact-map input');
+            const editProfileButton = document.querySelector('#btnEdit');
+
+
+            inputFields.forEach(input => {
+                if (input.disabled) {
+                    input.disabled = false;
+                }
+            });
+            inputFile.disabled = false;
+
+            // Change the button text between "Edit Profile" and "Save Profile"
+            if (editProfileButton.value === 'Edit Profile') {
+                editProfileButton.value = 'Save';
+                editProfileButton.type = 'submit';
+                event.preventDefault();
+            } 
+        }
+
+        function changeImagePreview() {
+            let avatarshowing = document.querySelector("#avatarShowing");
+            let inputAvatar = avatarshowing.nextElementSibling;
+            avatarshowing.src = inputAvatar.value;
+        }
+    </script>
+}

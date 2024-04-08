@@ -1,0 +1,464 @@
+﻿@using PRN221_PROJECT_FoodOrder
+@using PRN221_PROJECT_FoodOrder.Business.IService;
+@using PRN221_PROJECT_FoodOrder.Model
+@using PRN221_PROJECT_FoodOrder.Utils
+@inject ICustomerService customerService
+@inject IShoppingCartService scService
+@Html.AntiForgeryToken()
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css" rel="stylesheet" />
+
+    <link rel="icon" href="~/img/fav-icon.png">
+
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <!-- nice-select -->
+    <link rel="stylesheet" href="~/css/nice-select.css">
+    <!-- aos -->
+    <link rel="stylesheet" href="~/css/aos.css">
+    <!-- style -->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- responsive -->
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <!-- color -->
+    <link rel="stylesheet" href="~/css/color.css">
+
+
+    <!-- Font Awesome 5 -->
+    <script src="https://kit.fontawesome.com/27a041baf1.js" crossorigin="anonymous"></script>
+</head>
+<body class="menu-layer">
+    @{
+        var tokenString = Context.Request.Cookies["Token"];
+        User getUser = null;
+        Customer customer = null;
+        ICollection<ShoppingCart> carts = null;
+        string userAvatar = "";
+        if (!string.IsNullOrEmpty(tokenString))
+        {
+            getUser = JwtUtils.DecodeJwt(tokenString);
+            if (!getUser.Role.ToLower().Equals("admin"))
+            {
+                customer = customerService.getCustomerByUserId(getUser.UserId);
+                carts = scService.getCustomerShoppingCart(customer.CustomerId);
+            }
+            FoodOrderContext context = new FoodOrderContext();
+            User u = context.Users.Find(getUser.UserId);
+            userAvatar = u.Avatar;
+        }
+    }
+    <!-- header -->
+    <header>
+        <div class="container">
+
+            <div class="row align-items-center">
+                <div class="col-xl-2">
+                    <div class="header-style">
+                        <a href="/index">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="163" height="38" viewBox="0 0 163 38">
+                                <g id="Logo" transform="translate(-260 -51)">
+                                    <g id="Logo-2" data-name="Logo" transform="translate(260 51)">
+                                        <g id="Elements">
+                                            <path id="Path_1429" data-name="Path 1429"
+                                                  d="M315.086,140.507H275.222v-.894c0-11.325,8.941-20.538,19.933-20.538s19.931,9.213,19.931,20.538Z"
+                                                  transform="translate(-270.155 -115.396)" fill="#f29f05" />
+                                            <path id="Path_1430" data-name="Path 1430"
+                                                  d="M301.13,133.517a1.488,1.488,0,0,1-1.394-.994,11.361,11.361,0,0,0-10.583-7.54,1.528,1.528,0,0,1,0-3.055,14.353,14.353,0,0,1,13.37,9.527,1.541,1.541,0,0,1-.875,1.966A1.444,1.444,0,0,1,301.13,133.517Z"
+                                                  transform="translate(-264.176 -113.935)" fill="#fff" />
+                                            <path id="Path_1431" data-name="Path 1431"
+                                                  d="M297.343,146.544a14.043,14.043,0,0,1-13.837-14.211h2.975a10.865,10.865,0,1,0,21.723,0h2.975A14.043,14.043,0,0,1,297.343,146.544Z"
+                                                  transform="translate(-266.247 -108.544)" fill="#363636" />
+                                            <path id="Path_1432" data-name="Path 1432"
+                                                  d="M302.183,132.519a7.064,7.064,0,1,1-14.122,0Z"
+                                                  transform="translate(-264.027 -108.446)" fill="#363636" />
+                                            <path id="Path_1433" data-name="Path 1433"
+                                                  d="M320.332,134.575H273.3a1.528,1.528,0,0,1,0-3.055h47.033a1.528,1.528,0,0,1,0,3.055Z"
+                                                  transform="translate(-271.815 -108.923)" fill="#f29f05" />
+                                            <path id="Path_1434" data-name="Path 1434"
+                                                  d="M289.154,123.4a1.507,1.507,0,0,1-1.487-1.528v-3.678a1.488,1.488,0,1,1,2.975,0v3.678A1.508,1.508,0,0,1,289.154,123.4Z"
+                                                  transform="translate(-264.154 -116.667)" fill="#f29f05" />
+                                            <path id="Path_1435" data-name="Path 1435"
+                                                  d="M284.777,138.133H275.3a1.528,1.528,0,0,1,0-3.055h9.474a1.528,1.528,0,0,1,0,3.055Z"
+                                                  transform="translate(-270.84 -107.068)" fill="#363636" />
+                                            <path id="Path_1436" data-name="Path 1436"
+                                                  d="M284.8,141.691h-6.5a1.528,1.528,0,0,1,0-3.055h6.5a1.528,1.528,0,0,1,0,3.055Z"
+                                                  transform="translate(-269.379 -105.218)" fill="#363636" />
+                                        </g>
+                                    </g>
+                                    <text id="Quickeat" transform="translate(320 77)" fill="#363636" font-size="20"
+                                          font-family="Poppins" font-weight="700">
+                                        <tspan x="0" y="0">QUICK</tspan>
+                                        <tspan y="0" fill="#f29f05">EAT</tspan>
+                                    </text>
+                                </g>
+                            </svg>
+
+                        </a>
+                        <div class="extras bag">
+                            <a href="javascript:void(0)" class="menu-btn">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                <span class='badge badge-warning lblCartCount'>0</span>
+                            </a>
+                            <div class="bar-menu">
+                                <i class="fa-solid fa-bars"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <nav class="navbar">
+                        <ul class="navbar-links">
+                            <li class="navbar-dropdown active">
+                                <a href="/Index">Home</a>
+                            </li>
+                            <li class="navbar-dropdown">
+                                <a href="#">Pages</a>
+                                <div class="dropdown">
+                                    <a href="/foodmenu">Food Menu</a>
+                                    <a href="/checkout">Checkout</a>
+                                    <a href="/orderhistory">Order History</a>
+                                    <a href="/login" style="display: @(getUser != null? "none": null)">Login Page</a>
+                                    <a href="/register" style="display: @(getUser != null? "none": null)">Register Page</a>
+                                </div>
+                            </li>
+                            @{
+                                if (getUser != null)
+                                {
+                                    string getRole = getUser.Role.ToLower();
+                                    if (getRole.Equals("admin"))
+                                    {
+                                        <li class="navbar-dropdown">
+                                            <a href="#">Admin</a>
+                                            <div class="dropdown">
+                                                <a href="/manageuser">Manage User</a>
+                                                <a href="/manageproduct">Manage Product</a>
+                                                <a href="/manageorder">Manage Order</a>
+                                            </div>
+                                        </li>
+                                    }
+
+                                }
+                            }
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="extras bag">
+                        <a href="javascript:void(0)" id="desktop-menu" class="menu-btn">
+
+                            <i class="fa-solid fa-bag-shopping"></i>
+                            <span class='badge badge-warning lblCartCount'>0</span>
+                        </a>
+
+                        @if (getUser == null)
+                        {
+                            <a href="/login" class="button button-2">Order Now</a>
+                        }
+                        else
+                        {
+                            <img src="@userAvatar"
+                                 style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" />
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="/userprofile">User Profile</a></li>
+                                <li><a class="dropdown-item" href="/changepassword">Change Password</a></li>
+                                <li><a class="dropdown-item" href="/Logout">Log Out</a></li>
+                            </ul>
+                        }
+
+
+                    </div>
+                </div>
+                <div class="menu-wrap">
+                    <div class="menu-inner ps ps--active-x ps--active-y">
+                        <span class="menu-cls-btn"><i class="cls-leftright"></i><i class="cls-rightleft"></i></span>
+                        <div class="checkout-order" id="cart-float">
+                            <div class="title-checkout">
+                                <h2>My Orders</h2>
+                            </div>
+                            
+                            <ul class="cart-items">
+                                @if (customer != null)
+                                {
+                                    foreach(var cartItem in carts)
+                                    {
+                                        <li class="price-list" data-product="@cartItem.ProductId" status="1">
+                                        <i class="closeButton fa-solid fa-xmark"></i>
+                                        <div class="counter-container">
+                                            <div class="counter-food">
+                                                <img alt="food" src="@cartItem.Product.ProductImage">
+                                                <div type="hidden"></div>
+                                                <h4>@cartItem.Product.ProductName</h4>
+                                            </div>
+                                                <h3>$@(cartItem.Product.UnitPrice)</h3>
+                                        </div>
+                                        <div class="price">
+                                            <div>
+                                                <h2>$@(cartItem.Product.UnitPrice * cartItem.Amount)</h2>
+                                                <span>Sum</span>
+                                            </div>
+                                            <div>
+                                                <div class="qty-input">
+                                                    <button class="qty-count qty-count--minus" data-action="minus"
+                                                            type="button">
+                                                        -
+                                                    </button>
+                                                    <input class="product-qty" type="number" name="product-qty" min="1"
+                                                           value="@cartItem.Amount">
+                                                    <button class="qty-count qty-count--add" data-action="add"
+                                                            type="button">
+                                                        +
+                                                    </button>
+                                                </div>
+                                                <span>Quantity</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    }
+                                    
+                                }
+                                
+                            </ul>
+                            <div class="totel-price">
+                                <span>Total order:</span>
+                                <h5>$0.00</h5>
+                            </div>
+                            <div class="totel-price">
+                                <span>To pay:</span>
+                                <h2>$0.00</h2>
+                            </div>
+                            <button class="button-price" onclick="redirectToCheckout(@(customer != null? customer.CustomerId : 0))">Checkout</button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-nav hmburger-menu" id="mobile-nav" style="display:block;">
+
+
+                    <div class="res-log">
+                        <a href="index.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="163" height="38" viewBox="0 0 163 38">
+                                <g id="Logo" transform="translate(-260 -51)">
+                                    <g id="Logo-2" data-name="Logo" transform="translate(260 51)">
+                                        <g id="Elements">
+                                            <path id="Path_1429" data-name="Path 1429"
+                                                  d="M315.086,140.507H275.222v-.894c0-11.325,8.941-20.538,19.933-20.538s19.931,9.213,19.931,20.538Z"
+                                                  transform="translate(-270.155 -115.396)" fill="#f29f05" />
+                                            <path id="Path_1430" data-name="Path 1430"
+                                                  d="M301.13,133.517a1.488,1.488,0,0,1-1.394-.994,11.361,11.361,0,0,0-10.583-7.54,1.528,1.528,0,0,1,0-3.055,14.353,14.353,0,0,1,13.37,9.527,1.541,1.541,0,0,1-.875,1.966A1.444,1.444,0,0,1,301.13,133.517Z"
+                                                  transform="translate(-264.176 -113.935)" fill="#fff" />
+                                            <path id="Path_1431" data-name="Path 1431"
+                                                  d="M297.343,146.544a14.043,14.043,0,0,1-13.837-14.211h2.975a10.865,10.865,0,1,0,21.723,0h2.975A14.043,14.043,0,0,1,297.343,146.544Z"
+                                                  transform="translate(-266.247 -108.544)" fill="#363636" />
+                                            <path id="Path_1432" data-name="Path 1432"
+                                                  d="M302.183,132.519a7.064,7.064,0,1,1-14.122,0Z"
+                                                  transform="translate(-264.027 -108.446)" fill="#363636" />
+                                            <path id="Path_1433" data-name="Path 1433"
+                                                  d="M320.332,134.575H273.3a1.528,1.528,0,0,1,0-3.055h47.033a1.528,1.528,0,0,1,0,3.055Z"
+                                                  transform="translate(-271.815 -108.923)" fill="#f29f05" />
+                                            <path id="Path_1434" data-name="Path 1434"
+                                                  d="M289.154,123.4a1.507,1.507,0,0,1-1.487-1.528v-3.678a1.488,1.488,0,1,1,2.975,0v3.678A1.508,1.508,0,0,1,289.154,123.4Z"
+                                                  transform="translate(-264.154 -116.667)" fill="#f29f05" />
+                                            <path id="Path_1435" data-name="Path 1435"
+                                                  d="M284.777,138.133H275.3a1.528,1.528,0,0,1,0-3.055h9.474a1.528,1.528,0,0,1,0,3.055Z"
+                                                  transform="translate(-270.84 -107.068)" fill="#363636" />
+                                            <path id="Path_1436" data-name="Path 1436"
+                                                  d="M284.8,141.691h-6.5a1.528,1.528,0,0,1,0-3.055h6.5a1.528,1.528,0,0,1,0,3.055Z"
+                                                  transform="translate(-269.379 -105.218)" fill="#363636" />
+                                        </g>
+                                    </g>
+                                    <text id="Quickeat" transform="translate(320 77)" fill="#363636" font-size="20"
+                                          font-family="Poppins" font-weight="700">
+                                        <tspan x="0" y="0">QUICK</tspan>
+                                        <tspan y="0" fill="#f29f05">EAT</tspan>
+                                    </text>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                    <ul>
+
+                        <li>
+                            <a href="/index">Home</a>
+                        </li>
+
+                        <li><a href="about.html">About Us</a></li>
+
+                        <li><a href="contact.html">contacts</a></li>
+
+                    </ul>
+
+                    <a href="JavaScript:void(0)" id="res-cross"></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    @RenderBody()
+
+
+    <!-- footer -->
+    <footer class="gap no-bottom" style="background-color: #363636;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-6 col-sm-12">
+                    <div class="footer-description">
+                        <a href="index.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="163" height="38" viewBox="0 0 163 38">
+                                <g id="Logo" transform="translate(-260 -51)">
+                                    <g id="Logo-2" data-name="Logo" transform="translate(260 51)">
+                                        <g id="Elements">
+                                            <path id="Path_1429" data-name="Path 1429"
+                                                  d="M315.086,140.507H275.222v-.894c0-11.325,8.941-20.538,19.933-20.538s19.931,9.213,19.931,20.538Z"
+                                                  transform="translate(-270.155 -115.396)" fill="#f29f05" />
+                                            <path id="Path_1430" data-name="Path 1430"
+                                                  d="M301.13,133.517a1.488,1.488,0,0,1-1.394-.994,11.361,11.361,0,0,0-10.583-7.54,1.528,1.528,0,0,1,0-3.055,14.353,14.353,0,0,1,13.37,9.527,1.541,1.541,0,0,1-.875,1.966A1.444,1.444,0,0,1,301.13,133.517Z"
+                                                  transform="translate(-264.176 -113.935)" fill="#fff" />
+                                            <path id="Path_1431" data-name="Path 1431"
+                                                  d="M297.343,146.544a14.043,14.043,0,0,1-13.837-14.211h2.975a10.865,10.865,0,1,0,21.723,0h2.975A14.043,14.043,0,0,1,297.343,146.544Z"
+                                                  transform="translate(-266.247 -108.544)" fill="#fff" />
+                                            <path id="Path_1432" data-name="Path 1432"
+                                                  d="M302.183,132.519a7.064,7.064,0,1,1-14.122,0Z"
+                                                  transform="translate(-264.027 -108.446)" fill="#fff" />
+                                            <path id="Path_1433" data-name="Path 1433"
+                                                  d="M320.332,134.575H273.3a1.528,1.528,0,0,1,0-3.055h47.033a1.528,1.528,0,0,1,0,3.055Z"
+                                                  transform="translate(-271.815 -108.923)" fill="#f29f05" />
+                                            <path id="Path_1434" data-name="Path 1434"
+                                                  d="M289.154,123.4a1.507,1.507,0,0,1-1.487-1.528v-3.678a1.488,1.488,0,1,1,2.975,0v3.678A1.508,1.508,0,0,1,289.154,123.4Z"
+                                                  transform="translate(-264.154 -116.667)" fill="#f29f05" />
+                                            <path id="Path_1435" data-name="Path 1435"
+                                                  d="M284.777,138.133H275.3a1.528,1.528,0,0,1,0-3.055h9.474a1.528,1.528,0,0,1,0,3.055Z"
+                                                  transform="translate(-270.84 -107.068)" fill="#fff" />
+                                            <path id="Path_1436" data-name="Path 1436"
+                                                  d="M284.8,141.691h-6.5a1.528,1.528,0,0,1,0-3.055h6.5a1.528,1.528,0,0,1,0,3.055Z"
+                                                  transform="translate(-269.379 -105.218)" fill="#fff" />
+                                        </g>
+                                    </g>
+                                    <text id="Quickeat" transform="translate(320 77)" fill="#fff" font-size="20"
+                                          font-family="Poppins" font-weight="700">
+                                        <tspan x="0" y="0">QUICK</tspan>
+                                        <tspan y="0" fill="#f29f05">EAT</tspan>
+                                    </text>
+                                </g>
+                            </svg>
+                        </a>
+                        <h2>
+                            The Best Restaurants
+                            in Your Home
+                        </h2>
+                        <p>
+                            The biggest difference between love and hate is that 
+                            love makes people dream of the future, 
+                            but hate can only let people remember those painful old things.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="menu">
+                        <h4>Menu</h4>
+                        <ul class="footer-menu">
+                            <li><a href="index.html">home<i class="fa-solid fa-arrow-right"></i></a></li>
+                            <li><a href="about.html">about us<i class="fa-solid fa-arrow-right"></i></a></li>
+                            <li><a href="restaurants.html">Restaurants<i class="fa-solid fa-arrow-right"></i></a></li>
+                            <li><a href="contacts.html">Contacts<i class="fa-solid fa-arrow-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="menu contacts">
+                        <h4>Contacts</h4>
+                        <div class="footer-location">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <p>
+                                1717 Harrison St, San Francisco, CA 94103,
+                                United States
+                            </p>
+                        </div>
+                        <a href="mailto:quickeat@mail.net"><i class="fa-solid fa-envelope"></i>quickeat@mail.net</a>
+                        <a href="callto:+14253261627"><i class="fa-solid fa-phone"></i>+1 425 326 16 27</a>
+                    </div>
+                    <ul class="social-media">
+                        <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-two gap no-bottom">
+                <p>Copyright © 2022. Quickeat. All rights reserved.</p>
+                <div class="privacy">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Services</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- owl.carousel -->
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <!-- aos -->
+    <script src="~/js/aos.js"></script>
+    <!-- custom -->
+    <script src="~/js/custom.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".dish").on("click", function () {
+                // Check if the click occurred on the product name or the image
+                const isProductNameClicked = $(event.target).is("h3");
+                const isImageClicked = $(event.target).is("img");
+
+                // Proceed with navigation if the click occurred on the product name or the image
+                if (isProductNameClicked || isImageClicked) {
+                    // Get the productId from the id attribute of the clicked element
+                    const productId = this.id.split("-")[1];
+                    // Navigate to the ProductDetail page with the productId as a query parameter
+                    window.location.href = `/fooddetails?productId=${productId}`;
+                }
+            });
+
+
+            const initItems = cart_float.find(".price-list");
+            initItems.each(function () {
+                updateSubtotal($(this));
+            });
+
+            addCartItemsListener(@(customer ==null? 0: customer.CustomerId), cart_float, false);
+            updateCartCount(ulList.find(".price-list").length);
+            updateTotalPrice(cart_float);
+        });
+    </script>
+    <!-- Your existing HTML code -->
+    <!-- Add the following script tag in your HTML file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Add the following link tag in your HTML file for CSS styling of the toast -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+    @RenderSection("JavaScript", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

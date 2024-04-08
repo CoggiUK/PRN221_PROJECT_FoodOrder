@@ -1,0 +1,237 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Home page";
+    List<Comment> coty = Model.comments;
+}
+
+<!-- hero-section -->
+<section class="hero-section gap" style="background-image: url(/img/background-1.png);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+                <div class="restaurant">
+                    <h1>
+                        The Best restaurants
+                        in your home
+                    </h1>
+                    <p>
+                        The biggest difference between love and hate is that
+                        love makes people dream of the future,
+                        but hate can only let people remember those painful old things.
+                    </p>
+                    <div class="nice-select-one">
+                        <a href="/login" class="button button-2">Order Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300" data-aos-duration="400">
+                <div class="img-restaurant">
+                    <img alt="man" src="https://bslthemes.com/html/quickeat/assets/img/photo-1.png">
+                    <div class="wilmington">
+                        <img alt="img" src="https://websitecukcukvn.misacdn.net/wp-content/uploads/2022/03/KFC-tai-viet-nam.jpg" style="width: 90px;object-fit:cover">
+                        <div>
+                            <p>Restaurant of the Month</p>
+                            <h6>KFC Lang Ha</h6>
+                            <div>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star-half-stroke"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wilmington location-restaurant">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h6>12 Restaurant</h6>
+                            <p>In Your city</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- works-section -->
+<section class="works-section gap no-top">
+    <div class="container">
+        <div class="hading" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+            <h2>How it works</h2>
+            <p>
+                Magna sit amet purus gravida quis blandit turpis cursus. Venenatis tellus in<br> metus vulputate eu
+                scelerisque felis.
+            </p>
+        </div>
+        <div class="row ">
+            <div class="col-lg-4 col-md-6 col-sm-12" data-aos="flip-up" data-aos-delay="200"
+                 data-aos-duration="300">
+                <div class="work-card">
+                    <img alt="img" src="https://bslthemes.com/html/quickeat/assets/img/illustration-1.png">
+                    <h4><span>01</span> Select Food Type</h4>
+                    <p>
+                        Non enim praesent elementum facilisis leo vel fringilla. Lectus proin nibh nisl condimentum
+                        id. Quis varius quam quisque id diam vel.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12" data-aos="flip-up" data-aos-delay="300"
+                 data-aos-duration="400">
+                <div class="work-card">
+                    <img alt="img" src="https://bslthemes.com/html/quickeat/assets/img/illustration-2.png">
+                    <h4><span>02</span> Select menu</h4>
+                    <p>
+                        Eu mi bibendum neque egestas congue quisque. Nulla facilisi morbi tempus iaculis urna id
+                        volutpat lacus. Odio ut sem nulla pharetra diam sit amet.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12" data-aos="flip-up" data-aos-delay="400"
+                 data-aos-duration="500">
+                <div class="work-card">
+                    <img alt="img" src="https://bslthemes.com/html/quickeat/assets/img/illustration-3.png">
+                    <h4><span>03</span> Wait for delivery</h4>
+                    <p>
+                        Nunc lobortis mattis aliquam faucibus. Nibh ipsum consequat nisl vel pretium lectus quam id
+                        leo. A scelerisque purus semper eget. Tincidunt arcu non.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- your-favorite-food -->
+<section class="your-favorite-food gap" style="background-image: url(https://bslthemes.com/html/quickeat/assets/img/background-1.png);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+                <div class="food-photo-section">
+                    <img alt="img" src="https://bslthemes.com/html/quickeat/assets/img/photo-3.png">
+                    <a href="#" class="one"><i class="fa-solid fa-burger"></i>Burgers</a>
+                    <a href="#" class="two"><i class="fa-solid fa-cheese"></i>Steaks</a>
+                    <a href="#" class="three"><i class="fa-solid fa-pizza-slice"></i>Pizza</a>
+                </div>
+            </div>
+            <div class="col-lg-6 offset-lg-1" data-aos="fade-up" data-aos-delay="300" data-aos-duration="400">
+                <div class="food-content-section">
+                    <h2>
+                        Food from your favorite restaurants
+                        to your table
+                    </h2>
+                    <p>
+                        Pretium lectus quam id leo in vitae turpis massa sed. Lorem donec massa sapien faucibus et
+                        molestie. Vitae elementum curabitur vitae nunc.
+                    </p>
+                    <a href="#" class="button button-2">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- counters-section -->
+<section class="counters-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-3 col-md-6 col-sm-12" data-aos="flip-up" data-aos-delay="200"
+                 data-aos-duration="300">
+                <div>
+                    <h2>Service shows good taste.</h2>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12" data-aos="flip-up" data-aos-delay="300"
+                 data-aos-duration="400">
+                <div class="count-time">
+                    <h2 class="timer count-title count-number" data-to="976" data-speed="2000">976</h2>
+                    <p>
+                        Satisfied<br>
+                        Customer
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12" data-aos="flip-up" data-aos-delay="400"
+                 data-aos-duration="500">
+                <div class="count-time">
+                    <h2 class="timer count-title count-number" data-to="12" data-speed="2000">12</h2>
+                    <p>
+                        Best<br>
+                        Restaurants
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12" data-aos="flip-up" data-aos-delay="500"
+                 data-aos-duration="600">
+                <div class="count-time sp">
+                    <h2 class="timer count-title count-number" data-to="1" data-speed="2000">1</h2>
+                    <span>k+</span>
+                    <p>
+                        Food<br>
+                        Delivered
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- reviews-sections -->
+<section class="reviews-sections gap">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-6 col-lg-12" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+                <div class="reviews-content">
+                    <h2>What customers say about us</h2>
+                    <div class="custome owl-carousel owl-theme">
+                        @foreach(var c in coty)
+                        {
+                            <div class="item">
+                                <h4>
+                                    @c.CommentContent
+                                </h4>
+                                <div class="thomas">
+                                    <img style="width: 70px;height: 70px;" 
+                                         alt="girl" src="@(c.Customer?.User?.Avatar ?? "https://via.placeholder.com/70x70" )">
+                                    <div>
+                                        <h6>@c.Customer?.CustomerName</h6>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="item">
+                            <h4>
+                                "Dapibus ultrices in iaculis nunc sed augue lacus viverra vitae. Mauris a diam
+                                maecenas sed enim. Egestas diam in arcu cursus euismod quis. Quam quisque id diam
+                                vel".
+                            </h4>
+                            <div class="thomas">
+                                <img alt="girl" src="https://via.placeholder.com/70x70">
+
+                                <div>
+                                    <h6>Thomas Adamson</h6>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-12" data-aos="fade-up" data-aos-delay="300" data-aos-duration="400">
+                <div class="reviews-img">
+                    <img alt="photo" src="https://bslthemes.com/html/quickeat/assets/img/photo-4.png">
+                    <i class="fa-regular fa-thumbs-up"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

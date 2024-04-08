@@ -1,0 +1,84 @@
+.no-data {
+    margin: 1em;
+    text-align: center;
+    font-size: 1.5em;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.toast-bottom-right{
+    bottom:10px;
+    right:10px;
+}
+
+.dish img, .dish h3{
+    /* Add this style to change the mouse cursor */
+    cursor: pointer;
+}
+
+.badge {
+    font-size: 11px;
+    background: #ff0000;
+    padding: 0 5px;
+    vertical-align: top;
+    margin-left: -25px;
+    line-height:initial;
+    border-radius: 9px;
+}
+.badge-warning[href] {
+    background-color: #c67605;
+}
+img[alt="food"] {
+    width: 100px;
+    height:67px;
+}
+img[alt="mann"]{
+    width: 50px;
+    height: 50px;
+}
+#checkout-form input, #checkout-form .nice-select, #checkout-form .nice-select span{
+    color: black;
+}
+
+#order-history .status-new a{
+    color: blue;
+    border: 1px solid blue;
+    /* Add other styles for 'new' status */
+}
+
+
+
+#order-history .status-shipped a {
+    color: green;
+    border: 1px solid green;
+    /* Add other styles for 'shipped' status */
+}
+
+#order-history .status-delivered a {
+    color: orange;
+    border: 1px solid orange;
+    /* Add other styles for 'delivered' status */
+}
+
+#order-history .status-closed a {
+    color: red;
+    border: 1px solid red;
+    /* Add other styles for 'closed' status */
+}
+#order-history h3,
+#order-history h4{
+    /* Your styles for h1, h2, h3, and h4 elements within #order-history */
+    font-weight:bold;
+}
+
+.fa-solid.fa-star.empty {
+    font-weight: 400;
+    /* Add other styles if needed */
+}
+
+#order-history .counter-container img[alt="food"],
+#order-history .counter-container h4 {
+    cursor: pointer;
+}
+

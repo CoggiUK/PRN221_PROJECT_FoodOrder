@@ -1,0 +1,58 @@
+﻿@page
+@model PRN221_PROJECT_FoodOrder.Pages.UserDetailsModel
+@{
+    User u = ViewBag.user;
+}
+
+<section class="gap">
+    <div class="container">
+        <div class="row">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="fw-bold mb-3">User Details</h3>
+                    <div class="row gy-3">
+                        <div class="col-md-6">
+                            <label class="form-label">User ID</label>
+                            <input value="@u.UserId" class="form-control" disabled/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Role</label>
+                            <input value="@u.Role" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Username</label>
+                            <input value="@u.Username" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Customer Name</label>
+                            <input value="@u.Customer.CustomerName" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Customer Address</label>
+                            <input value="@u.Customer.CustomerAddress" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Customer Phone Number</label>
+                            <input value="@u.Customer.CustomerPhone" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input value="@u.Email" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email Confirm</label>
+                            @if(u.EmailConfirm) {
+                                <input value="Yes" class="form-control" disabled />
+                            } else {
+                                <input value="No" class="form-control" disabled />
+                            }
+                            
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

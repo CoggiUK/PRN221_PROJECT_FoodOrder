@@ -1,0 +1,184 @@
+﻿@page
+@model PRN221_PROJECT_FoodOrder.Pages.CheckoutModel
+@{
+	Customer c = Model.currentCustomer as Customer;
+	List<ShoppingCart> cart = new List<ShoppingCart>();
+	if (Model.Cart != null)
+	{
+		cart = Model.Cart as List<ShoppingCart>;
+	}
+}
+<!-- hero-section -->
+<section class="hero-section about checkout gap" style="background-image: url(/img/background-3.png);">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-12">
+				<div class="about-text pricing-table">
+					<ul class="crumbs d-flex" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+						<li><a href="index.html">Home</a></li>
+						<li class="two"><a href="index.html"><i class="fa-solid fa-right-long"></i>Checkout</a></li>
+					</ul>
+					<h2 data-aos="fade-up" data-aos-delay="300" data-aos-duration="400">Checkout</h2>
+					<p data-aos="fade-up" data-aos-delay="400" data-aos-duration="500">
+						Ancient proverb.<br>
+						Men go out, ten steps one enemy!<br>
+						The meaning of these words is to tell us.<br>
+						Do not want to go out the door!<br>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- checkout-order -->
+<section class="gap">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-5 col-lg-12" data-aos="flip-up" data-aos-delay="200" data-aos-duration="300">
+				<div class="checkout-order" id="cart-checkout">
+					<div class="title-checkout">
+						<h2>Your order:</h2>
+						<h6>@cart.Count</h6>
+					</div>
+					@*<div class="banner-wilmington">
+						<img alt="logo" src="https://via.placeholder.com/50x50">
+						<h6>Kennington Lane Cafe</h6>
+					</div>*@
+					<ul>
+						@if (c != null)
+						{
+							foreach (var cartItem in cart)
+							{
+								<li class="price-list" data-product="@cartItem.ProductId">
+									<i class="closeButton fa-solid fa-xmark"></i>
+									<div class="counter-container">
+										<div class="counter-food">
+											<img alt="food" src="@cartItem.Product.ProductImage">
+											<div type="hidden"></div>
+											<h4>@cartItem.Product.ProductName</h4>
+										</div>
+										<h3>$@cartItem.Product.UnitPrice</h3>
+									</div>
+									<div class="price">
+										<div>
+											<h2>$@(cartItem.Product.UnitPrice * cartItem.Amount)</h2>
+											<span>Sum</span>
+										</div>
+										<div>
+											<div class="qty-input">
+												<button class="qty-count qty-count--minus" data-action="minus"
+														type="button">
+													-
+												</button>
+												<input class="product-qty" type="number" name="product-qty" min="1"
+													   value="@cartItem.Amount">
+												<button class="qty-count qty-count--add" data-action="add"
+														type="button">
+													+
+												</button>
+											</div>
+											<span>Quantity</span>
+										</div>
+									</div>
+								</li>
+							}
+
+						}
+						
+					</ul>
+					<div class="totel-price">
+						<span>Total order:</span>
+						<h5>$0.00</h5>
+					</div>
+					<div class="totel-price">
+						<span>To pay:</span>
+						<h2>$0.00</h2>
+					</div>
+
+				</div>
+			</div>
+			<div class="offset-xl-1 col-xl-6 col-lg-12" data-aos="flip-up" data-aos-delay="300" data-aos-duration="400">
+				<form id="checkout-form" class="checkout-form" method="post">
+					<h4>Buyer information</h4>
+					<input type="hidden" name="CustomerId" value="@(c == null ? "" : c.CustomerId ) " />
+					<input type="text" name="Name" placeholder="Full Name" required value="@(c == null ? "" :c.CustomerName)" title="Field required!">
+					<div class="col-lg-8">
+						<input type="text" name="Phone" placeholder="Phone" required value="@(c == null ? "" : c.CustomerPhone)" title="Field required!">
+					</div>
+					<h4 class="two">Delivery addresses</h4>
+					<select class="nice-select Advice" name="District" required title="na">
+						<option value="">Select a district</option>
+						<option>Hoang Mai</option>
+						<option>Thanh Xuan</option>
+						<option>Long Bien</option>
+						<option>Bac Tu Liem</option>
+						<option>Ba Dinh</option>
+						<option>Cau Giay</option>
+					</select>
+					<input type="text" name="DetailsAddress" placeholder="Street, Apartment, House number" required value="@(c == null ? "" : c.CustomerAddress)" title="Field required!">
+					<h4 class="two">Payment method</h4>
+					<div class="nav nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+						<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Cash</button>
+						<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Card</button>
+					</div>
+					<div class="tab-content" id="v-pills-tabContent">
+						<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+						</div>
+						<div class="tab-pane fade " id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+							<div class="col-lg-8">
+								<div class="no-data">
+									*In developed
+								</div>
+							</div>
+							<label>
+								<input type="radio" name="test" value="small" checked disabled>
+								<img alt="checkbox-img" src="~/img/checkbox-1.png">
+							</label>
+
+							<label>
+								<input type="radio" name="test" value="big" disabled>
+								<img alt="checkbox-img" src="~/img/checkbox-2.png">
+							</label>
+							<label>
+								<input type="radio" name="test" value="big" disabled>
+								<img alt="checkbox-img" src="~/img/checkbox-3.png">
+							</label>
+							<input type="number" name="Name" placeholder="Card number" disabled>
+							<div class="row">
+								<div class="col-lg-6">
+									<input type="text" name="E-mail" placeholder="Expiration Date" disabled>
+								</div>
+								<div class="col-lg-6">
+									<input type="password" placeholder="CVV" disabled>
+								</div>
+							</div>
+							<label class="checkbox-one">
+								Save my payments details for future purchases
+								<input type="checkbox" disabled>
+								<span class="checkmark"></span>
+							</label>
+
+						</div>
+                        
+					</div>
+					
+					<button class="button-price" type="submit">Send</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+	$(document).ready(function () 
+	{
+		const cart_checkout = $("#cart-checkout");
+		const initItems = cart_checkout.find(".price-list");
+		initItems.each(function () {
+			updateSubtotal($(this));
+		});
+
+		addCartItemsListener(@(c == null ? 0 : c.CustomerId), cart_checkout, false);
+		updateTotalPrice(cart_checkout);
+	});
+</script>

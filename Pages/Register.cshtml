@@ -1,0 +1,106 @@
+﻿@page
+@using PRN221_PROJECT_FoodOrder.Model
+@model PRN221_PROJECT_FoodOrder.Pages.RegisterModel
+@{
+}<section class="hero-section gap" style="background-image: url(/img/background-1.png);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+                <div class="restaurant">
+                    <h1 class="mb-4">
+                        Register
+                    </h1>
+                    <p class="mb-4">Register to save your history order and payment faster</p>
+                    <form method="post">
+                        <label class="mb-2 form-label">Username <span class="text-danger">*</span></label>
+                        <input id="username" asp-for="@Model.RegisterUser.Username" type="text" class="form-control form-control-lg w-75 mb-3" />
+
+                        <label class="mb-2 form-label">Email <span class="text-danger">*</span></label>
+                        <input id="email" asp-for="@Model.RegisterUser.Email" type="text" class="form-control form-control-lg w-75 mb-3" />
+
+                        <label class="mb-2 form-label">Password <span class="text-danger">*</span></label>
+                        <input id="password" asp-for="@Model.RegisterUser.Password" type="password" class="form-control form-control-lg w-75 mb-3" />
+
+                        <label class="mb-2 form-label">Re-Password<span class="text-danger">*</span></label>
+                        <input id="confirmPassword" type="password" oninput="checkPasswordMatch()" class="form-control form-control-lg w-75 mb-1" />
+                        <div id="msg" class="text-danger mb-3"></div>
+
+                        <input type="submit" class="btn btn-primary w-75 py-2" value="Register" style="background-color: #F29F05;border: 1px solid #F29F05" disabled />
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300" data-aos-duration="400">
+                <div class="img-restaurant">
+                    <img alt="man" src="https://bslthemes.com/html/quickeat/assets/img/photo-1.png">
+                    <div class="wilmington">
+                        <img alt="img" src="https://websitecukcukvn.misacdn.net/wp-content/uploads/2022/03/KFC-tai-viet-nam.jpg" style="width: 90px;object-fit:cover">
+                        <div>
+                            <p>Restaurant of the Month</p>
+                            <h6>KFC Lang Ha</h6>
+                            <div>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star-half-stroke"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wilmington location-restaurant">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h6>12 Restaurant</h6>
+                            <p>In Your city</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section JavaScript {
+    <script>
+        function checkPasswordMatch() {
+
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var msg = document.getElementById("msg");
+            var registerBtn = document.querySelector(".btn-primary");
+            if(password !== confirmPassword) {
+                msg.textContent = "Passwords do not match.";
+                registerBtn.disabled = true;
+            } else {
+                msg.textContent = "";
+                registerBtn.disabled = false;
+            }
+            
+
+        }
+
+
+    </script>
+    <script>
+        // Get the success message from TempData and display it as a toast
+        document.addEventListener("DOMContentLoaded", function () {
+            var successMessage = "@ViewData["SuccessMessage"]";
+            if (successMessage) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Register Success',
+                    confirmButtonColor: '#F29F05',
+                    confirmButtonText: 'Go To Login Page'
+                }).then((result) => {
+                    {
+                        if (result.isConfirmed) {
+                            {
+                                window.location.href = '/login';
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+}

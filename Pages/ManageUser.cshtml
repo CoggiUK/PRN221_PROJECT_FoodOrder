@@ -1,0 +1,62 @@
+﻿@page
+@model PRN221_PROJECT_FoodOrder.Pages.ManageUserModel
+@{
+}
+<style>
+    .page-item.active .page-link {
+        background-color: #F29F05;
+        border-color: #F29F05;
+    }
+</style>
+<section class="gap">
+    <div class="container">
+        <div class="row">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="fw-bold mb-3">Manage User</h3>
+@*                    <a class="btn btn-primary mb-3" style="background-color: #F29F05; border: 1px solid #F29F05">
+                        Create User
+                    </a>*@
+                    <table id="myTable" class="table">
+                        <thead>
+                            <tr>
+                                <td>User Id</td>
+                                <td>User Name</td>
+                                <td>Email</td>
+                                <td>Role</td>
+                                <td>Status</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Model.User item in ViewBag.userList)
+                            {
+                                <tr>
+                                    <td>@item.UserId</td>
+                                    <td>@item.Username</td>
+                                    <td>@item.Email</td>
+                                    <td>
+                                        <span class="badge" style="vertical-align: unset;margin-left: 0px; background-color: #F29F05">@item.Role</span>
+                                    </td>
+                                    <td>
+                                        @if(item.UserStatus == true) {
+                                            <span class="badge bg-success " style="vertical-align: unset;margin-left: 0px;">Active</span>
+                                        } else {
+                                            <span class="badge bg-danger" style="vertical-align: unset;margin-left: 0px;">Disable</span>
+                                        }
+                                        
+                                    </td>
+                                    <td class="d-flex justify-content-center">
+                                        <a asp-page="UserDetails" asp-route-userid="@item.UserId"><i class="fa-solid fa-eye text-secondary"></i></a>
+                                        <a asp-page-handler="Disable" asp-route-userid="@item.UserId" class="ms-2"><i class="fa-solid fa-trash text-secondary"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

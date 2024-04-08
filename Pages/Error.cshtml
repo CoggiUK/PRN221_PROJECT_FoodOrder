@@ -1,0 +1,27 @@
+﻿@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+<section class="hero-section gap" style="background-image: url(/img/background-1.png);">
+    <div class="container">
+        <h1 class="text-danger">Error.</h1>
+        <h2 class="text-danger">An error occurred while processing your request.</h2>
+
+        @if (Model.ShowRequestId)
+        {
+            <p>
+                <strong>Request ID:</strong> <code>@Model.RequestId</code>
+            </p>
+            <p>@TempData["ErrorMessage"]</p>
+        }
+
+        <p>
+            “We sleep with the best dreams, wake up with the worst plans.”<br />
+            "We believe in the beauty of humanity, but we know that the beauty cannot stand the test."<br />
+            "We believe in the existence of justice, also do not believe that it belongs to us."
+            "So we narrate the best dream, tell the best story."
+            "Yet, always doing dirty gestures, despicable acts."
+        </p>
+    </div>
+</section>
